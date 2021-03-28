@@ -10,8 +10,6 @@ function App() {
   const [tasks, setTasks] = useState(taskData)
   const [count, setCount] = useState(0)
 
-  console.log(tasks)
-
   const updateCountHandler = (incOrDec) => {
     incOrDec === 'increment'
       ? setCount((prevState) => prevState + 1)
@@ -28,6 +26,18 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, formattedTask])
   }
 
+  const filterHandler = (query) => {
+    console.log(query)
+    if (query === '') {
+      setTasks(taskData)
+    } else {
+      const filtered = tasks.filter((task) =>
+        task.name.toLowerCase().includes(query.toLowerCase())
+      )
+      setTasks(filtered)
+    }
+  }
+
   return (
     <div className="layout">
       <div className="frame">
@@ -35,7 +45,7 @@ function App() {
           <h1>Tasks</h1>
           <span className="completed-count-text">{count} completed</span>
         </div>
-        <FilterInput />
+        <FilterInput filterHandler={filterHandler} />
         <div className="frame-body">
           {tasks.map((entry, idx) => (
             <TaskCard

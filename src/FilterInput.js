@@ -2,13 +2,17 @@ import { useState } from 'react'
 import { mdiFilterVariant } from '@mdi/js'
 import Icon from '@mdi/react'
 
-export default function FilterInput() {
+export default function FilterInput({ filterHandler }) {
   const [value, setValue] = useState('')
 
+  const onChangeHandler = (event) => {
+    setValue(event.target.value)
+    filterHandler(event.target.value)
+  }
   return (
     <div className="input-container">
       <input
-        onChange={(event) => setValue(event.target.value)}
+        onChange={onChangeHandler}
         value={value}
         placeholder="Filter by task name"
       ></input>
