@@ -10,13 +10,18 @@ function App() {
   const [tasks, setTasks] = useState(taskData)
   const [count, setCount] = useState(0)
 
+  console.log(tasks)
+
   const updateCountHandler = (incOrDec) => {
     incOrDec === 'increment'
       ? setCount((prevState) => prevState + 1)
       : setCount((prevState) => prevState - 1)
   }
 
-  console.log(count)
+  const deleteTaskHandler = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((el) => el.id !== taskId))
+  }
+
   return (
     <div className="layout">
       <div className="frame">
@@ -29,9 +34,11 @@ function App() {
           {tasks.map((entry, idx) => (
             <TaskCard
               key={idx}
+              id={entry.id}
               name={entry.name}
               isFirstCard={idx === 0}
               updateCountHandler={updateCountHandler}
+              deleteTaskHandler={deleteTaskHandler}
             ></TaskCard>
           ))}
           <AddTaskInput />
