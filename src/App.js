@@ -22,6 +22,12 @@ function App() {
     setTasks((prevTasks) => prevTasks.filter((el) => el.id !== taskId))
   }
 
+  const createTaskHandler = (newTask) => {
+    const lastId = parseInt(tasks[tasks.length - 1].id)
+    const formattedTask = { id: lastId + 1, name: newTask }
+    setTasks((prevTasks) => [...prevTasks, formattedTask])
+  }
+
   return (
     <div className="layout">
       <div className="frame">
@@ -41,7 +47,7 @@ function App() {
               deleteTaskHandler={deleteTaskHandler}
             ></TaskCard>
           ))}
-          <AddTaskInput />
+          <AddTaskInput createTaskHandler={createTaskHandler} />
         </div>
       </div>
     </div>
